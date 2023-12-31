@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This is bash script that makes sure killswitch and portforwading are enabled,
+# then uses fzf to prompt the user to select a server to connect to.
+# The final section outputs the Server location, VPN IP, Port, and protocol.
+
 clear
 
 # Make sure killswitch is auto
