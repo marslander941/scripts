@@ -79,3 +79,30 @@ else
 	done
 fi
 
+# Prompt user for confirmation
+echo "This script will reset and configure UFW for Private Internet Access."
+read -p "Do you want to continue? (y/n): " response
+
+if [[ "$response" =~ ^[Yy]$ ]]; then
+    # Resetting UFW firewall settings
+    echo "Resetting UFW firewall..."
+    sudo ufw reset
+
+    # Re-enabling UFW
+    echo "Re-enabling UFW..."
+    sudo ufw enable
+
+    # Adding Private Internet Access (PIA) port to UFW
+    pia_port=$(piactl get portforward)
+    echo "Adding PIA port to UFW: $pia_port"
+    sudo ufw allow $pia_port
+
+    # Displaying UFW status in verbose mode
+    echo -e "\nCurrent UFW status:"
+    sudo ufw status verbose
+
+    echo "UFW configuration completed successfully."
+else
+    echo "UFW configuration canceled."
+fi
+
